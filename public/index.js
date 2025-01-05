@@ -15,8 +15,8 @@ const emailForm = document.querySelector("#emailForm");
 const toast = document.querySelector(".toast");
 
 const baseURL = "https://fileshare-0bt3.onrender.com";
-const uploadURL = `${baseURL}/api/files/upload`;
-const emailURL = `${baseURL}/api/files/send`;
+const uploadURL = `${baseURL}/upload`;
+const emailURL = `${baseURL}/send`;
 
 const maxAllowedSize = 100 * 1024 * 1024; // 100MB
 
