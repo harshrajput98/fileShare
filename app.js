@@ -26,11 +26,17 @@ app.use(express.urlencoded({ extended: true }));
 //starting the database
 connectDB();
 
+app.use('/uploads', express.static('uploads'));
+
 
 //routes
 app.use('/api/files',FilesRoutes);
 app.use('/files',Show);
 app.use('/files/download',download);
+app.use((req, res) => {
+    res.status(404).json({ error: "Route not found" });
+  });
+  
 
 
 

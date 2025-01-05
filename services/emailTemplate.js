@@ -104,7 +104,7 @@ module.exports = ({emailFrom, downloadLink, size, expires}) => {
                     <div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
             
                         <!-- START CENTERED WHITE CONTAINER -->
-                        <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is preheader text. Some clients will show this text as a preview.</span>
+                        
                         <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
             
                         <!-- START MAIN CONTENT AREA -->
@@ -123,7 +123,7 @@ module.exports = ({emailFrom, downloadLink, size, expires}) => {
                                             <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                                             <tbody>
                                                 <tr>
-                                                <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="${downloadLink}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Download file</a> </td>
+                                                <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color:rgb(219, 77, 16); border-radius: 5px; text-align: center;"> <a href="${downloadLink}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Download file</a> </td>
                                                 </tr>
                                             </tbody>
                                             </table>
@@ -142,23 +142,7 @@ module.exports = ({emailFrom, downloadLink, size, expires}) => {
                         <!-- END MAIN CONTENT AREA -->
                         </table>
             
-                        <!-- START FOOTER -->
-                        <div class="footer" style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                            <tr>
-                            <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">inShare inc. main street 29, Moscow</span>
-                                <br> Want to share a file? <a href="http://localhost:3000" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">inShare</a>.
-                            </td>
-                            </tr>
-                            <tr>
-                            <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                Powered by <a href="https://www.youtube.com/channel/UCo9xTRmg1SqQ5JSsA2fAgJw" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Coders Gyan</a>.
-                            </td>
-                            </tr>
-                        </table>
-                        </div>
-                        <!-- END FOOTER -->
+                        
             
                     <!-- END CENTERED WHITE CONTAINER -->
                     </div>

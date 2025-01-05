@@ -16,49 +16,58 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'), // Set uploads directory
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+    cb(null, uniqueName); // Generate unique file name
   },
 });
 
 const upload = multer({
   storage,
-  limits: { fileSize: 1000 * 100 }, // Limit file size to 100KB
+  limits: { fileSize: 100 * 1024 * 1024 }, // Limit file size to 100MB
+  fileFilter: (req, file, cb) => {
+    const allowedMimeTypes = ['image/jpeg','image/jpg','image/webp', 'image/png', 'application/pdf']; // Allowed file types
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      return cb(new Error('Invalid file type'), false); // Reject file if it's not in allowed types
+    }
+    cb(null, true); // Accept the file if it's valid
+  }
 }).single('myfile');
+
+router.get('/', (req, res) => {
+  res.render('index'); // Render index page
+});
 
 
 // File upload route
-router.post('/upload', (req, res) => {
+router.post('/upload', upload, async (req, res) => {
+  if (!req.file) {
+    console.error("No file uploaded");
+    return res.status(400).json({ error: 'No file uploaded!' });
+  }
 
-  // Store files
-  upload(req, res, async (err) => {
+  console.log("Received file:", req.file);  // Log the uploaded file details
 
-    // Validation for file existence
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded!' });
-    }
+  try {
+    const file = new File({
+      filename: req.file.filename,
+      uuid: uuid4(),
+      path: req.file.path,
+      size: req.file.size,
+    });
 
-    // Handle Multer errors
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-
-    // Save file information to the database
-    try {
-      const file = new File({
-        filename: req.file.filename,
-        uuid: uuid4(),
-        path: req.file.path,
-        size: req.file.size,
-      });
-      const response = await file.save();
-
-      // Return file download link
-      return res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` });
-    } catch (dbError) {
-      return res.status(500).json({ error: 'Database error: ' + dbError.message });
-    }
-  });
+    console.log("Saving file to database...");
+    file.save()
+    .then((savedFile) => {
+      // Send back the URL in the response (assuming you want to construct the URL dynamically)
+      const fileURL = `${req.protocol}://${req.get('host')}/files/${savedFile.uuid}`;
+      res.json({ file: fileURL });
+      console.log({ file: fileURL })
+    })
+  } catch (error) {
+    console.error("Database error:", error); // Log any database errors
+    return res.status(500).json({ error: 'Database error: ' + error.message });
+  }
 });
+
 
 
 // Sending URL of Donwload Image via Link
@@ -73,9 +82,9 @@ router.post('/send',async(req,res)=>{
 
   const file =  await File.findOne({uuid:uuid});
 
-  if(file.sender){   // Checking if sender is not sending same file again and again
-    res.status(422).send({error:'Email Already Sent !!!'});
-  }
+  // if(file.sender){   // Checking if sender is not sending same file again and again
+  //   res.status(422).send({error:'Email Already Sent !!!'});
+  // }
 
   file.sender = emailFrom;
   file.reciever = emailTo;
