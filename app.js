@@ -30,7 +30,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 //routes
-app.use('/api/files',FilesRoutes);
+app.use('/',FilesRoutes);
 app.use('/files',Show);
 app.use('/files/download',download);
 app.use((req, res) => {
